@@ -1,0 +1,36 @@
+{
+  "name": "marko-book-inventory",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The default Marko starter app with TypeScript",
+  "type": "module",
+  "imports": {
+    "#db/*": "./src/db/*",
+    "#prisma/*": "./generated/prisma/*.ts"
+  },
+  "scripts": {
+    "build": "marko-run build",
+    "dev": "marko-run",
+    "preview": "marko-run preview",
+    "start": "node --enable-source-maps ./dist/index.mjs"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "@tailwindcss/vite": "^4.1.8",
+    "marko": "^6.0.0",
+    "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "@marko/run": "^0.6.4",
+    "@types/node": "^22.15.29",
+    "prettier": "^3.5.3",
+    "prettier-plugin-marko": "^3.1.12",
+    "prettier-plugin-packagejson": "^2.5.15",
+    "prisma": "^6.9.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.js"
+  }
+}

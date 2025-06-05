@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Author {
+  id                 Int            @id @default(autoincrement())
+  name               String
+  average_rating     Decimal?
+  text_reviews_count Int?
+  ratings_count      Int?
+  BookToAuthor       BookToAuthor[]
+}
+
+model Book {
+  id                 Int            @id @default(autoincrement())
+  isbn               String         @unique
+  isbn13             String?
+  title              String
+  publication_year   Int?
+  publisher          String?
+  image_url          String?
+  description        String?
+  num_pages          Int?
+  language_code      String?
+  text_reviews_count Int?
+  ratings_count      Int?
+  average_rating     Decimal?
+  popular_shelves    Json?
+  createdAt          DateTime       @default(now())
+  metadata           Json?
+  title_tsv          String
+  thumbhash          String?
+  BookToAuthor       BookToAuthor[]
+}
+
+model BookToAuthor {
+  book     Book   @relation(fields: [bookId], references: [id])
+  bookId   Int
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  @@id([bookId, authorId])
+}

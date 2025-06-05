@@ -1,0 +1,13 @@
+import type { SearchParams } from "#db/queries.js";
+export interface Input {
+    searchParams: SearchParams;
+    pageNumber: number;
+}
+
+<for|key, value| in=input.searchParams>
+    <if=key !== "page">
+        <input type="hidden" name=key value=value>
+    </if>
+</for>
+
+<input type="hidden" name="page" value=input.pageNumber>

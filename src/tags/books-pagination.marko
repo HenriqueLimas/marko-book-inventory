@@ -1,0 +1,44 @@
+import type { SearchParams } from "#db/queries.js";
+export interface Input {
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
+    searchParams: SearchParams;
+}
+
+<const/{ searchParams, currentPage, totalPages, totalResults }=input/>
+
+<if=(totalPages > 1)>
+    <nav
+        role="navigation"
+        aria-label="pagination"
+        class="mx-auto flex w-full justify-center"
+    >
+        <ul class="flex flex-row items-center gap-1 justify-between">
+            <li>
+                <form action="/">
+                    <form-values
+                        searchParams=searchParams
+                        pageNumber=Math.max(1, currentPage - 1)
+                    />
+                    <button type="submit" disabled=currentPage <= 1>
+                        ←
+                    </button>
+                </form>
+            </li>
+
+            <div class="text-sm text-muted-foreground">
+                ${totalResults.toLocaleString()}${" "}results (${currentPage.toLocaleString()}${" "}of${" "}${totalPages.toLocaleString()}${" "})
+            </div>
+
+            <li>
+                <form action="/">
+                    <form-values
+                        searchParams=searchParams
+                        pageNumber=Math.min(totalPages, currentPage + 1)
+                    />
+                </form>
+            </li>
+        </ul>
+    </nav>
+</if>
