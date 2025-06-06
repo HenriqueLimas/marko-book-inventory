@@ -1,4 +1,5 @@
 import { PrismaClient } from '#prisma/client'
+import type { SearchParams } from '../utils';
 
 const prisma = new PrismaClient({
     datasources: {
@@ -8,15 +9,6 @@ const prisma = new PrismaClient({
     }
 })
 
-export type SearchParams = {
-    q?: string;
-    yr?: string;
-    rtg?: string;
-    lng?: string;
-    isbn?: string;
-    page?: string;
-}
-
 export const ITEMS_PER_PAGE = 28;
 
 export async function fetchBooksWithPagination(searchParams: SearchParams) {
@@ -25,7 +17,28 @@ export async function fetchBooksWithPagination(searchParams: SearchParams) {
 
     const paginatedBooks = await prisma.book.findMany({
         skip: offset,
-        take: ITEMS_PER_PAGE
+        take: ITEMS_PER_PAGE,
+        where: {
+            isbn: searchParams.isbn && {
+                in: searchParams.isbn.split(',')
+            },
+            average_rating: searchParams.rtg && {
+                gte: searchParams.rtg
+            },
+            publication_year: searchParams.yr ? {
+                gte: 1950,
+                lte: Math.max(1950, Math.min(new Date().getFullYear(), Number(searchParams.yr)))
+            } : {
+                gte: 1950,
+                lte: new Date().getFullYear()
+            },
+            language_code: searchParams.lng === 'en' ? {
+                in: ['eng', 'en-US', 'en-GB']
+            } : searchParams.lng,
+            num_pages: {
+                lte: Math.min(1000, Number(searchParams.pgs) || 1000)
+            }
+        }
     })
 
     return paginatedBooks

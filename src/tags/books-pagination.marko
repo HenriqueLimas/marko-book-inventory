@@ -1,4 +1,4 @@
-import type { SearchParams } from "#db/queries.js";
+import type { SearchParams } from "../utils";
 export interface Input {
     currentPage: number;
     totalPages: number;
@@ -37,6 +37,9 @@ export interface Input {
                         searchParams=searchParams
                         pageNumber=Math.min(totalPages, currentPage + 1)
                     />
+                    <button type="submit" disabled=(currentPage > totalPages)>
+                        →
+                    </button>
                 </form>
             </li>
         </ul>

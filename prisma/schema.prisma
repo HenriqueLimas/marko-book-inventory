@@ -23,7 +23,7 @@ model Author {
 
 model Book {
   id                 Int            @id @default(autoincrement())
-  isbn               String         @unique
+  isbn               String?        @unique
   isbn13             String?
   title              String
   publication_year   Int?

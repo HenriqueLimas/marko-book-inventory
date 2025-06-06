@@ -1,3 +1,4 @@
+import { parseSearchParams } from "../../utils";
 server import {
   estimateTotalBooks,
   fetchBooksWithPagination,
@@ -8,7 +9,7 @@ server import {
   <div class="flex-grow overflow-auto min-h-[200px]">
     <div class="group-has-[[data-pending]]:animate-pulse p-4">
       <try>
-        <await|books|=fetchBooksWithPagination($global.params)>
+        <await|books|=fetchBooksWithPagination(parseSearchParams($global.url))>
           <books-grid books=books/>
         </await>
       </try>

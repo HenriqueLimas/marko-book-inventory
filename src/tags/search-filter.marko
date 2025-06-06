@@ -1,4 +1,4 @@
-import type { SearchParams } from "#db/queries.js";
+import { parseSearchParams } from "../utils";
 static const LANGUAGES = [
     { value: "en", label: "English" },
     { value: "spa", label: "Spanish" },
@@ -24,14 +24,7 @@ static const LISTS = [
     },
 ];
 
-<const/urlSearchParams=(new URL($global.url).searchParams)/>
-<const/searchParams: SearchParams={
-    yr: urlSearchParams.get("yr") || undefined,
-    rtg: urlSearchParams.get("rtg") || undefined,
-    lng: urlSearchParams.get("lng") || undefined,
-    isbn: urlSearchParams.get("isbn") || undefined,
-    page: urlSearchParams.get("page") || undefined,
-}/>
+<const/searchParams=parseSearchParams($global.url)/>
 <div class="flex-shrink-0 flex flex-col h-full bg-white">
     <div class="relative overflow-hidden">
         <div class="h-full w-full rounded-[inherit]">
@@ -101,7 +94,9 @@ static const LISTS = [
                         value=lng
                         valueChange(newValue) {
                             lng = newValue;
-                            searchForm().submit();
+                            setTimeout(() => {
+                                searchForm().submit();
+                            });
                         }
                     >
                         <for|language| of=LANGUAGES>
@@ -113,7 +108,7 @@ static const LISTS = [
                 </div>
 
                 <div>
-                    <let/pgs=searchParams.page || "1000"/>
+                    <let/pgs=searchParams.pgs || "1000"/>
                     <label for="page-range">
                         Number of Pages
                     </label>
@@ -123,7 +118,7 @@ static const LISTS = [
                         min="1"
                         max="1000"
                         step="1"
-                        name="page"
+                        name="pgs"
                         value=pgs
                         valueChange(newValue) {
                             pgs = newValue;
@@ -141,14 +136,29 @@ static const LISTS = [
                     <label>Book Lists</label>
                     <div class="relative overflow-hidden">
                         <div class="h-full w-full rounded-[inherit]">
-                            <let/isbn=""/>
+                            <let/isbn=searchParams.isbn/>
                             <for|list| of=LISTS>
                                 <div class="flex items-center space-x-2 py-1">
                                     <input
                                         id=`list-${list.name.toLowerCase()}`
                                         type="checkbox"
-                                        checked=isbn ===
-                                        list.isbns.split(",")[0]
+                                        name="isbn"
+                                        value=(
+                                            isbn === list.isbns
+                                                ? list.isbns
+                                                : undefined
+                                        )
+                                        checked=isbn === list.isbns
+                                        checkedChange(checked) {
+                                            if (checked) {
+                                                isbn = list.isbns;
+                                            } else {
+                                                isbn = "";
+                                            }
+                                            setTimeout(() => {
+                                                searchForm().submit();
+                                            });
+                                        }
                                     >
 
                                     <label for=`list-${list.name.toLowerCase()}`>

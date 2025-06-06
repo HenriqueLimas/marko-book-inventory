@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "../generated/prisma/client";
 import fs from "node:fs";
 import { join, dirname } from "node:path";
 import readline from "node:readline";
@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding database");
+
+  console.log('Seeding authors')
   const authorFileStream = fs.createReadStream(
     join(__dirname, "/authors.json"),
   );
@@ -38,7 +40,10 @@ async function main() {
     }
   }
 
-  const bookFileStream = fs.createReadStream(join(__dirname, "/books.json"));
+  console.log('Seeding books')
+  const bookFileStream = fs.createReadStream(
+    join(__dirname, "/books.json"),
+  );
   const bookReadline = readline.createInterface({
     input: bookFileStream,
     crlfDelay: Infinity,
@@ -52,7 +57,7 @@ async function main() {
         update: {},
         create: {
           id: Number(book.book_id),
-          isbn: book.isbn,
+          isbn: book.isbn || undefined,
           isbn13: book.isbn13,
           title: book.title,
           publication_year: Number(book.publication_year) || null,
