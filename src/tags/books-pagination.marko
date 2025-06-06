@@ -15,33 +15,37 @@ export interface Input {
         class="mx-auto flex w-full justify-center"
     >
         <ul class="flex flex-row items-center gap-1 justify-between">
-            <li>
-                <form action="/">
-                    <form-values
-                        searchParams=searchParams
-                        pageNumber=Math.max(1, currentPage - 1)
-                    />
-                    <button type="submit" disabled=currentPage <= 1>
-                        ←
-                    </button>
-                </form>
-            </li>
+            <if=(currentPage > 1)>
+                <li>
+                    <form action="/">
+                        <form-values
+                            searchParams=searchParams
+                            pageNumber=Math.max(1, currentPage - 1)
+                        />
+                        <button type="submit">
+                            ←
+                        </button>
+                    </form>
+                </li>
+            </if>
 
             <div class="text-sm text-muted-foreground">
                 ${totalResults.toLocaleString()}${" "}results (${currentPage.toLocaleString()}${" "}of${" "}${totalPages.toLocaleString()}${" "})
             </div>
 
-            <li>
-                <form action="/">
-                    <form-values
-                        searchParams=searchParams
-                        pageNumber=Math.min(totalPages, currentPage + 1)
-                    />
-                    <button type="submit" disabled=(currentPage > totalPages)>
-                        →
-                    </button>
-                </form>
-            </li>
+            <if=currentPage < totalPages>
+                <li>
+                    <form action="/">
+                        <form-values
+                            searchParams=searchParams
+                            pageNumber=Math.min(totalPages, currentPage + 1)
+                        />
+                        <button type="submit">
+                            →
+                        </button>
+                    </form>
+                </li>
+            </if>
         </ul>
     </nav>
 </if>

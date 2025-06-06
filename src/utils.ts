@@ -18,5 +18,6 @@ export function parseSearchParams(url: URL): SearchParams {
     isbn: searchParams.get("isbn") || undefined,
     page: searchParams.get("page") || undefined,
     pgs: searchParams.get("pgs") || undefined,
+    q: searchParams.get("q") || undefined
   };
 }
