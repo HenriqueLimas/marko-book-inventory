@@ -24,33 +24,47 @@ static const LISTS = [
     },
 ];
 
+<const/urlSearchParams=(new URL($global.url).searchParams)/>
+<const/searchParams: SearchParams={
+    yr: urlSearchParams.get("yr") || undefined,
+    rtg: urlSearchParams.get("rtg") || undefined,
+    lng: urlSearchParams.get("lng") || undefined,
+    isbn: urlSearchParams.get("isbn") || undefined,
+    page: urlSearchParams.get("page") || undefined,
+}/>
 <div class="flex-shrink-0 flex flex-col h-full bg-white">
     <div class="relative overflow-hidden">
         <div class="h-full w-full rounded-[inherit]">
-            <div class="p-2 space-y-4">
+            <form/searchForm class="p-2 space-y-4">
                 <div>
-                    <let/year=new Date().getFullYear()/>
+                    <let/year=(
+                        searchParams.yr || new Date().getFullYear().toString()
+                    )/>
                     <label for="year-range">
                         Publication Year
                     </label>
                     <input
                         id="year-range"
                         class="mt-2"
+                        name="yr"
                         type="range"
                         min="1950"
                         max=new Date().getFullYear()
-                        step="10"
-                        value:=year
+                        step="1"
+                        value=year
+                        valueChange(newValue) {
+                            year = newValue;
+                            searchForm().submit();
+                        }
                     >
                     <div class="flex justify-between mt-1 text-sm text-muted-foreground">
                         <span>1950</span>
                         <span>${new Date().getFullYear().toString()}</span>
-                        <span>${year}</span>
                     </div>
                 </div>
 
                 <div>
-                    <let/rating=""/>
+                    <let/rating=searchParams.rtg || "0"/>
                     <label for="rating">
                         Minimum Rating
                     </label>
@@ -58,10 +72,15 @@ static const LISTS = [
                         id="rating"
                         class="mt-2"
                         type="range"
+                        name="rtg"
                         min="0"
                         max="5"
                         step="0.5"
-                        value:=rating
+                        value=rating
+                        valueChange(newValue) {
+                            rating = newValue;
+                            searchForm().submit();
+                        }
                     >
                     <div class="flex justify-between mt-1 text-sm text-muted-foreground">
                         <span>0</span>
@@ -71,16 +90,22 @@ static const LISTS = [
                 </div>
 
                 <div>
-                    <let/lng=""/>
+                    <let/lng=searchParams.lng || "en"/>
                     <label for="language">
                         Language
                     </label>
-                    <select class="mt-2" id="language">
+                    <select
+                        name="lng"
+                        class="mt-2"
+                        id="language"
+                        value=lng
+                        valueChange(newValue) {
+                            lng = newValue;
+                            searchForm().submit();
+                        }
+                    >
                         <for|language| of=LANGUAGES>
-                            <option
-                                value=language.value
-                                selected=language.value === lng
-                            >
+                            <option value=language.value>
                                 ${language.label}
                             </option>
                         </for>
@@ -88,7 +113,7 @@ static const LISTS = [
                 </div>
 
                 <div>
-                    <let/pgs="1000"/>
+                    <let/pgs=searchParams.page || "1000"/>
                     <label for="page-range">
                         Number of Pages
                     </label>
@@ -97,8 +122,13 @@ static const LISTS = [
                         type="range"
                         min="1"
                         max="1000"
-                        step="100"
-                        value:=pgs
+                        step="1"
+                        name="page"
+                        value=pgs
+                        valueChange(newValue) {
+                            pgs = newValue;
+                            searchForm().submit();
+                        }
                         class="mt-2"
                     >
                     <div class="flex justify-between mt-1 text-sm text-muted-foreground">
@@ -129,7 +159,7 @@ static const LISTS = [
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
