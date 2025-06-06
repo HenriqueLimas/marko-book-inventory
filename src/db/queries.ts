@@ -32,7 +32,6 @@ export async function fetchBooksWithPagination(searchParams: SearchParams) {
 }
 
 export async function estimateTotalBooks(searchParams: SearchParams) {
-    await new Promise(resolve => setTimeout(resolve, 500))
     const result = await prisma.book.aggregate({
         _count: {
             id: true
