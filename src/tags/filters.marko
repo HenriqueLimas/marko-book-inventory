@@ -26,7 +26,7 @@ static const LISTS = [
 
 <const/searchParams=parseSearchParams($global.url)/>
 <div class="flex-shrink-0 flex flex-col h-full bg-white">
-    <div class="relative overflow-hidden">
+    <div class="relative overflow-hidden flex-grow">
         <div class="h-full w-full rounded-[inherit]">
             <form/searchForm class="p-2 space-y-4">
                 <div>
@@ -172,4 +172,19 @@ static const LISTS = [
             </form>
         </div>
     </div>
+
+    <if=(
+        Object.entries(searchParams).filter(
+            ([key, value]) => key !== "page" && value,
+        ).length
+    )>
+        <div class="p-4 border-t">
+            <a
+                href="/"
+                class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            >
+                Clear all filters
+            </a>
+        </div>
+    </if>
 </div>

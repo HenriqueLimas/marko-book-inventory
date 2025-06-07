@@ -5,7 +5,7 @@ export interface Input {
 }
 
 <for|key, value| in=input.searchParams>
-    <if=key !== "page">
+    <if=key !== "page" && value>
         <input type="hidden" name=key value=value>
     </if>
 </for>

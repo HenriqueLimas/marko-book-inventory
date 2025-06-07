@@ -13,7 +13,7 @@ export interface Input {
         <for|book| of=input.books>
             <a
                 class="block transition ease-in-out md:hover:scale-105"
-                href=`/${book.id}`
+                href=`/${book.id}${$global.url.search}`
             >
                 <div class="relative aspect-[2/3] w-full overflow-hidden rounded-md bg-muted shadow-md">
                     <img

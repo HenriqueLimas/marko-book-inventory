@@ -1,8 +1,19 @@
+client import { createIcons, Search } from "lucide";
+client createIcons({
+    icons: {
+        Search,
+    },
+});
 import { parseSearchParams } from "../utils";
 <form class="relative flex flex-1 flex-shrink-0 w-full rounded shadow-sm">
     <label for="search" class="sr-only">
         Search
     </label>
+
+    <i
+        data-lucide="search"
+        class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+    />
 
     <const/searchParams=parseSearchParams($global.url)/>
     <let/searchValue=searchParams.q/>

@@ -61,5 +61,43 @@ export async function estimateTotalBooks(searchParams: SearchParams) {
     where: createFilter(searchParams),
   });
 
-  return result._count.id;
+  if (typeof result?._count === 'object') {
+    return result._count.id || 0
+  }
+  return 0;
+}
+
+export async function fetchBookById(id: string) {
+  const data = await prisma.book.findFirst({
+    where: {
+      id: Number(id),
+    },
+    include: {
+      BookToAuthor: {
+        include: {
+          author: {
+            select: {
+              name: true
+            }
+          }
+        }
+      }
+    }
+  });
+
+  const book = {
+    id: data?.id,
+    isbn: data?.isbn,
+    title: data?.title,
+    image_url: data?.image_url,
+    publication_year: data?.publication_year,
+    ratings_count: data?.ratings_count,
+    description: data?.description,
+    num_pages: data?.num_pages,
+    language_code: data?.language_code,
+    average_rating: data?.average_rating,
+    authors: data?.BookToAuthor?.map(bookToAuthor => bookToAuthor.author.name)
+  }
+
+  return book;
 }

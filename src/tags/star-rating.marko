@@ -1,0 +1,14 @@
+export interface Input {
+    rating?: string | null;
+}
+
+<if=input.rating>
+    <div class="flex items-center mr-4">
+        <for|i| to=4>
+            <i
+                data-lucide="star"
+                class=`w-5 h5 ${i < Math.floor(Number(input.rating)) ? "text-yellow-400 fill-current" : "text-gray-300"}`
+            />
+        </for>
+    </div>
+</if>
