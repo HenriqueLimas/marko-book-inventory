@@ -44,9 +44,8 @@ static const LISTS = [
                         min="1950"
                         max=new Date().getFullYear()
                         step="1"
-                        value=year
-                        valueChange(newValue) {
-                            year = newValue;
+                        value:=year
+                        onInput() {
                             searchForm().submit();
                         }
                     >
@@ -69,9 +68,8 @@ static const LISTS = [
                         min="0"
                         max="5"
                         step="0.5"
-                        value=rating
-                        valueChange(newValue) {
-                            rating = newValue;
+                        value:=rating
+                        onInput() {
                             searchForm().submit();
                         }
                     >
@@ -91,12 +89,9 @@ static const LISTS = [
                         name="lng"
                         class="mt-2"
                         id="language"
-                        value=lng
-                        valueChange(newValue) {
-                            lng = newValue;
-                            setTimeout(() => {
-                                searchForm().submit();
-                            });
+                        value:=lng
+                        onInput() {
+                            searchForm().submit();
                         }
                     >
                         <for|language| of=LANGUAGES>
@@ -119,9 +114,8 @@ static const LISTS = [
                         max="1000"
                         step="1"
                         name="pgs"
-                        value=pgs
-                        valueChange(newValue) {
-                            pgs = newValue;
+                        value:=pgs
+                        onInput() {
                             searchForm().submit();
                         }
                         class="mt-2"
@@ -155,9 +149,9 @@ static const LISTS = [
                                             } else {
                                                 isbn = "";
                                             }
-                                            setTimeout(() => {
-                                                searchForm().submit();
-                                            });
+                                        }
+                                        onInput() {
+                                            searchForm().submit();
                                         }
                                     >
 
