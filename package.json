@@ -6,7 +6,7 @@
   "type": "module",
   "imports": {
     "#db/*": "./src/db/*",
-    "#prisma/*": "./generated/prisma/*.ts"
+    "#prisma/*": "./generated/prisma/*.js"
   },
   "scripts": {
     "build": "marko-run build",
