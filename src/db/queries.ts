@@ -1,5 +1,5 @@
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { PrismaLibSQL } from '@prisma/adapter-libsql'
+import { PrismaLibSQL } from '@prisma/adapter-libsql/web'
 import { PrismaClient } from "prisma-app/client";
 import type { SearchParams } from "../utils";
 
