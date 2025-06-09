@@ -5,5 +5,7 @@ dist
 
 /generated/prisma
 *.db
+*.db-shm
+*.db-wal
 *-full.json
 .DS_Store

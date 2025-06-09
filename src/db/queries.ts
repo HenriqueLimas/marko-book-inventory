@@ -1,8 +1,13 @@
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { PrismaClient } from "#prisma/client";
+import { PrismaLibSQL } from '@prisma/adapter-libsql'
+import { PrismaClient } from "prisma-app/client";
 import type { SearchParams } from "../utils";
 
-const prisma = new PrismaClient().$extends(withAccelerate());
+const adapter = new PrismaLibSQL({
+  url: `${process.env.TURSO_DATABASE_URL}`,
+  authToken: `${process.env.TURSO_AUTH_TOKEN}`,
+})
+const prisma = new PrismaClient({ adapter }).$extends(withAccelerate());
 
 export const ITEMS_PER_PAGE = 28;
 

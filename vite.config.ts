@@ -6,10 +6,5 @@ export default defineConfig({
   plugins: [
     marko(),
     tailwindcss(),
-  ],
-  build: {
-    rollupOptions: {
-      external: [/#prisma/]
-    }
-  }
+  ]
 })

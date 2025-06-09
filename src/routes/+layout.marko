@@ -1,4 +1,13 @@
 import "./styles.css";
+client import {
+  createIcons,
+  Globe,
+  ArrowLeft,
+  BookOpen,
+  Calendar,
+  Star,
+  Search,
+} from "lucide";
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,5 +37,18 @@ import "./styles.css";
         </div>
       </div>
     </div>
+
+    <script>
+      createIcons({
+        icons: {
+          ArrowLeft,
+          BookOpen,
+          Globe,
+          Calendar,
+          Star,
+          Search,
+        },
+      });
+    </script>
   </body>
 </html>

@@ -1,20 +1,3 @@
-client import {
-    createIcons,
-    Globe,
-    ArrowLeft,
-    BookOpen,
-    Calendar,
-    Star,
-} from "lucide";
-client createIcons({
-    icons: {
-        ArrowLeft,
-        BookOpen,
-        Globe,
-        Calendar,
-        Star,
-    },
-});
 server import { fetchBookById } from "#db/queries.js";
 static const LANGUAGES: Record<string, string> = {
     en: "English",

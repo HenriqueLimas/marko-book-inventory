@@ -5,8 +5,7 @@
   "description": "The default Marko starter app with TypeScript",
   "type": "module",
   "imports": {
-    "#db/*": "./src/db/*",
-    "#prisma/*": "./generated/prisma/*.js"
+    "#db/*": "./src/db/*"
   },
   "scripts": {
     "build": "marko-run build",
@@ -15,6 +14,7 @@
     "start": "node --enable-source-maps ./dist/index.mjs"
   },
   "dependencies": {
+    "@prisma/adapter-libsql": "^6.9.0",
     "@prisma/client": "^6.9.0",
     "@prisma/extension-accelerate": "^2.0.1",
     "@tailwindcss/vite": "^4.1.8",
