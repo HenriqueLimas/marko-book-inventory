@@ -1,3 +1,7 @@
 [build]
-  command = "prisma generate && marko-run build"
+  command = "prisma generate && marko-run build && cp node_modules/prisma-app/libquery_engine-rhel-openssl-3.0.x.so.node dist"
+  publish = "dist/public"
   functions = "dist"
+
+[functions]
+  included_files = ["dist/libquery_engine-rhel-openssl-3.0.x.so.node"]
