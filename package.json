@@ -8,7 +8,7 @@
     "#db/*": "./src/db/*"
   },
   "scripts": {
-    "build": "marko-run build",
+    "build": "marko-run build && prisma generate",
     "dev": "marko-run",
     "preview": "marko-run preview",
     "start": "node --enable-source-maps ./dist/index.mjs"
@@ -23,7 +23,8 @@
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
-    "@marko/run": "^0.6.4",
+    "@marko/run": "^0.7.4",
+    "@marko/run-adapter-netlify": "^3.0.0",
     "@types/node": "^22.15.29",
     "prettier": "^3.5.3",
     "prettier-plugin-marko": "^3.1.12",

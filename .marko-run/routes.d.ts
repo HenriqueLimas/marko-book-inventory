@@ -5,13 +5,15 @@
 
 import { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform } from "@marko/run/namespace";
 import type * as Run from "@marko/run";
-
+import type { NetlifyFunctionsPlatformInfo } from '@marko/run-adapter-netlify';
 
 declare module "@marko/run" {
+	interface Platform extends NetlifyFunctionsPlatformInfo {}
+
 	interface AppData extends Run.DefineApp<{
 		routes: {
-			"/": Routes["/_index"];
-			"/:id": Routes["/$id"];
+			"/": { verb: "get"; meta: typeof import("../src/routes/_index/+meta.json"); };
+			"/$id": { verb: "get"; };
 		}
 	}> {}
 }
@@ -30,7 +32,7 @@ declare module "../src/routes/_index/+page.marko" {
 declare module "../src/routes/$id/+page.marko" {
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/:id"];
+    export type Route = Run.Routes["/$id"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -39,18 +41,13 @@ declare module "../src/routes/$id/+page.marko" {
 }
 
 declare module "../src/routes/+layout.marko" {
-  export interface Input extends Run.LayoutInput<typeof import('../src/routes/+layout.marko')> {}
+  export interface Input extends Run.LayoutInput<typeof import("../src/routes/+layout.marko")> {}
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/" | "/:id"];
+    export type Route = Run.Routes["/" | "/$id"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
     export const route: Run.HandlerTypeFn<Route>;
   }
-}
-
-type Routes = {
-	"/_index": { verb: "get"; meta: typeof import("../src/routes/_index/+meta.json"); };
-	"/$id": { verb: "get"; };
 }

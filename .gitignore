@@ -9,3 +9,5 @@ dist
 *.db-wal
 *-full.json
 .DS_Store
+# Local Netlify folder
+.netlify
