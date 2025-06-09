@@ -1,4 +1,3 @@
 [build]
   command = "prisma generate && marko-run build"
-  publish = "dist/public"
   functions = "dist"
