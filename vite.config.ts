@@ -9,5 +9,10 @@ export default defineConfig({
       adapter: netlifyAdapter()
     }),
     tailwindcss(),
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      external: [/prisma-app/]
+    }
+  }
 })
