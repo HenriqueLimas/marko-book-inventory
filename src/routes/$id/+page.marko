@@ -40,6 +40,10 @@ static const LANGUAGES: Record<string, string> = {
                     <a
                         href=`/${$global.url.search}`
                         class="hover:bg-accent hover:text-accent-foreground mb-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                        onClick(event) {
+                            event.preventDefault();
+                            history.back();
+                        }
                     >
                         <i class="mr-2 h-4 w-4" data-lucide="arrow-left"/>
                          Back to Books
@@ -52,6 +56,7 @@ static const LANGUAGES: Record<string, string> = {
                                     class="object-cover absolute size-full"
                                     src=book.image_url
                                     alt=book.title
+                                    style=`view-transition-name: book-image-${book.id}`
                                 >
                             </div>
                         </div>

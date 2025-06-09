@@ -20,6 +20,7 @@ export interface Input {
                         alt=book.title
                         src=book.image_url
                         class="object-cover absolute size-full"
+                        style=`view-transition-name: book-image-${book.id}`
                     >
                 </div>
             </a>

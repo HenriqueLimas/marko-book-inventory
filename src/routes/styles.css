@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@view-transition {
+  navigation: auto;
+}
+
+/* More complex animation (e.g., scale slightly) */
+/* This example applies to the whole group, making it move and potentially scale */
+/* You might need to adjust this depending on desired effect */
+::view-transition-group(book-image-*) {
+  animation: scale-and-move 0.5s ease-in-out forwards;
+}
+
+@keyframes scale-and-move {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
