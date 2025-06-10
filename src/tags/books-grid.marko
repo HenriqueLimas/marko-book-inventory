@@ -3,27 +3,25 @@ export interface Input {
     books: Book[];
 }
 
-<div class="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
-    <if=(!input.books?.length)>
-        <p class="text-center text-muted-foreground col-span-full">
-            No books found.
-        </p>
-    </if>
-    <else>
-        <for|book| of=input.books>
-            <a
-                class="block transition ease-in-out md:hover:scale-105"
-                href=`/${book.id}${$global.url.search}`
-            >
-                <div class="relative aspect-[2/3] w-full overflow-hidden rounded-md bg-muted shadow-md">
-                    <img
-                        alt=book.title
-                        src=book.image_url
-                        class="object-cover absolute size-full"
-                        style=`view-transition-name: book-image-${book.id}`
-                    >
-                </div>
-            </a>
-        </for>
-    </else>
-</div>
+<if=(!input.books?.length)>
+    <p class="text-center text-muted-foreground col-span-full">
+        No books found.
+    </p>
+</if>
+<else>
+    <for|book| of=input.books>
+        <a
+            class="block transition ease-in-out md:hover:scale-105"
+            href=`/${book.id}${$global.url.search}`
+        >
+            <div class="relative aspect-[2/3] w-full overflow-hidden rounded-md bg-muted shadow-md">
+                <img
+                    alt=book.title
+                    src=book.image_url
+                    class="object-cover absolute size-full"
+                    style=`view-transition-name: book-image-${book.id}`
+                >
+            </div>
+        </a>
+    </for>
+</else>
