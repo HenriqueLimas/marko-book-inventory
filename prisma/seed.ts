@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "prisma-app/client";
 import fs from "node:fs";
 import { join, dirname } from "node:path";
 import readline from "node:readline";
@@ -49,7 +49,10 @@ async function main() {
     crlfDelay: Infinity,
   });
 
+  let counter = 0;
   for await (const line of bookReadline) {
+    if (++counter > 680000) break;
+
     try {
       const book = JSON.parse(line);
       await prisma.book.upsert({
